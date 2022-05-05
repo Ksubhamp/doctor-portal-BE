@@ -1,0 +1,120 @@
+<div class="container pt-5">
+    <div class="row">
+        <div class="col">
+
+
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="card">
+
+                        <div class="row">
+                            <div class="col-7">
+                                <h2>
+                                    {{gretting_msg}}, <span class="doc_name"> {{doctor_data?.doctor_name}} </span>
+                                </h2>
+                                <p>Have a nice day</p>
+
+                            </div>
+                            <div class="col-5">
+
+                                <div class="doc_logo">
+                                    <img src="../../../../assets/images/publicdomainq-doc2.svg" height="150" alt=""
+                                        srcset="">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pt-5">
+                <div class="col">
+                    <div class="forms-group monthSelect pb-3">
+                        <input type="date" [ngModel]="selectDate" (change)="getdata($event)" name="" id="">
+                        
+                    </div>
+
+                    <table class="table">
+
+                        <thead>
+                            <th scope="col">No.</th>
+                            <th scope="col">Patient Name</th>
+                            <th scope="col">Patient Phone</th>
+                            <th scope="col">Appointment Date</th>
+                            <th scope="col">Appointment Time</th>
+                            <th scope="col">Status</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let p of patient_list">
+                                <td scope="row">1</td>
+                                <td style="position: relative;"><img class="patient_img" height="30"
+                                        src="https://img.icons8.com/external-konkapp-outline-color-konkapp/64/000000/external-patient-virus-transmission-konkapp-outline-color-konkapp.png" />
+
+                                    {{p.patient_name}}</td>
+                                <td>{{p.patinet_phone}}</td>
+                                <td>{{p.appointment_date | date:'shortDate'}}</td>
+                                <td>{{p.appointment_time}}</td>
+                                <td>{{p.appointment_status}}</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col">
+                    <div class="row">
+                        <div class="col-2">
+                            <h4>Date</h4>
+                        </div>
+                        <div class="col-2">
+                            <div class="row">
+                                <div class="col">
+                                    <h4>Name</h4>
+                                </div>
+                                <div class="col">
+                                    <h4>Status</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container *ngFor="let g of grouped_data">
+                        <div class="row">
+                            <div class="col-2">
+                                {{g.date | date : 'shortDate'}}
+
+                            </div>
+                            <div class="col-2">
+                                <div *ngFor="let app of g.apps">
+
+
+
+                                    <div class="row">
+                                        <div class="col">
+                                            {{app.patient_name}}
+                                        </div>
+                                        <div class="col">
+                                            {{app.appointment_status}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                    </ng-container>
+
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="container ">
+
+    <div class="row pt-3">
+        <div class="col">
+    
+    
+    
+    
+    
+            <div class="row">
+
+                <div class="col-sm-6 col-md-4" *ngFor="let doc of doctorList">
+                    <div class="card p-4">
+                        <div class=" image d-flex flex-column justify-content-center align-items-center"> <button
+                                class="btn btn-secondary"> <img src="https://img.icons8.com/color/96/000000/doctor-male-skin-type-1.png" height="100"
+                                    width="100" /></button> <span class="name mt-3">{{doc.doctor_name}}</span> <span
+                                class="idd">@eleanorpena</span>
+                         
+                            <div class=" d-flex mt-2"> <button class="btn1 btn-dark"   [routerLink]="['/doctor',doc._id]"   > Book appointment</button> </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <!-- <div class=" mt-4 mb-4 p-3 d-flex justify-content-center"> -->
+             
+            <!-- </div> -->
+    
+    
+    
+    
+        </div>
+    </div>
+</div>
