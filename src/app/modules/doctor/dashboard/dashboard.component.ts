@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/service/data.service';
+import { LocalstorageService } from 'src/app/service/localstorage.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,16 +13,18 @@ export class DashboardComponent implements OnInit {
   doctor_data:any;
   selectDate : any ='';
   raw_data:any[]=[];
+  cancelled_appoinment:any;
   patient_list:any[]=[];
   grouped_data:any[]=[];
+  selectedDate:any;
   constructor(
     private dataService: DataService,
-    private toastr: ToastrService,
   ) {
     let d = new Date();
+    // this.selectDate = "2022-03";
     this.selectDate = this.dataService.getDateFormat(d);
     d.setHours(0, 0, 0, 0);
-    this.getDashboardData(d);
+    this.getDashboardData(this.selectDate);
 
     var today = new Date();
     var curHr = today.getHours();
@@ -39,13 +42,16 @@ export class DashboardComponent implements OnInit {
   }
 
   getDashboardData(d :any) {
+    this.selectedDate = d;
     this.dataService.dashboardData(d).subscribe((res: any) => {
 
       if (res.status) {
         this.doctor_data = res.data?.doctor;
+        this.dataService.setCookie('doctor_data',JSON.stringify(this.doctor_data))
+        this.dataService.profileData.next(this.doctor_data);
         this.patient_list = res.data?.l;
         this.raw_data = res.data?.groupData;
-
+        this.cancelled_appoinment = this.patient_list.filter(a => a.appointment_status == 'Cancelled').length;
 
 
 
@@ -58,8 +64,8 @@ export class DashboardComponent implements OnInit {
   }
   getdata(e:any){
     console.log(e.target.value);
-    let d = new Date(e.target.value)
-    d.setHours(0, 0, 0, 0);
+    let d = e.target.value
+    // d.setHours(0, 0, 0, 0);
     this.getDashboardData(d)
   }
   setByGroup(){
@@ -74,11 +80,28 @@ export class DashboardComponent implements OnInit {
     this.grouped_data = Object.keys(groups).map((date) => {
       return {
         date,
-        apps: groups[date]
+        apps: groups[date],
+        closed:groups[date].filter((q:any) => q.appointment_status == 'Closed').length,
+        Cancelled:groups[date].filter((q:any) => q.appointment_status == 'Cancelled').length,
       };
     });
     
     console.log(this.grouped_data);
   }
+  updateStatus(id:any,s:any){
+    this.dataService.updateAppoinmentStatus(id,s).subscribe((res:any)=>{
+      if (res.status) {
+        this.getDashboardData(this.selectedDate);
+      }
+    },
+    (err)=>{
+
+    })
+  }
 
 }
+
+
+
+
+

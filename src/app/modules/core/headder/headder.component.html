@@ -7,7 +7,7 @@
                 <i class="fas fa-bars"></i>
             </button>
             <img src="https://img.icons8.com/color/96/000000/doctor-male-skin-type-1.png" />
-            <h3 class="me-5">Doctor-portal</h3>
+            <h3 class="me-5 logo_font">Doctor    Portal</h3>
             <div class="collapse navbar-collapse float-right" id="navbarExample01">
                 <ul class="navbar-nav mr-auto mb-2 mb-lg-0 ml-5">
                     <li class="nav-item active" [routerLink]="['/']" routerLinkActive="router-link-active">
@@ -28,12 +28,12 @@
                     <a class="nav-link"> <b> Login</b> </a>
                 </li>
                 <li *ngIf="isLogin" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" [routerLink]="['/admin/dashboard']" id="navbarDropdown"
+                    <a class="nav-link dropdown-toggle"id="navbarDropdown"
                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Mr. Gouri
+                        {{doctorData?.doctor_name}}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item">Dashboard</a>
+                        <a class="dropdown-item"  [routerLink]="['/admin/dashboard']" >Dashboard</a>
 
                     </div>
                 </li>

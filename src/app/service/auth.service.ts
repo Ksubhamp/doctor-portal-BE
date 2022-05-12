@@ -13,6 +13,6 @@ export class AuthService {
 
   ) { }
   login(o:any){
-    return this.http.post(this.baseUrl + 'auth/login',o)
+    return this.http.post(this.baseUrl + 'auth/login',o);
   }
 }

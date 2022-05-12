@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/service/data.service';
 
@@ -13,7 +13,8 @@ export class BookAppointmentComponent implements OnInit {
   doctorData: any;
   test:any="";
   slots: any = [];
-  doctor_id: any = ''
+  doctor_id: any = '';
+  minDate:any='';
   appointmentFrom = this.fb.group({
     doctor_id: [''],
     appointment_date: [''],
@@ -24,6 +25,7 @@ export class BookAppointmentComponent implements OnInit {
   })
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private dataService: DataService,
     private toastr: ToastrService,
     private fb: FormBuilder
@@ -32,11 +34,13 @@ export class BookAppointmentComponent implements OnInit {
       this.doctor_id = params['id'];
       this.appointmentFrom.controls['doctor_id'].setValue(this.doctor_id);
       let d = new Date;
+      this.minDate = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate() +1).padStart(2, '0')
       d.setHours(0, 0, 0, 0)
       this.appointmentFrom.controls['appointment_date'].setValue(this.getDateFormat(d));
       this.setSlots(d)
 
     });
+    
   }
 
   ngOnInit(): void {
@@ -65,6 +69,7 @@ export class BookAppointmentComponent implements OnInit {
         if (res.status) {
           this.toastr.success(res.msg);
           this.appointmentFrom.reset()
+          this.router.navigate(['/'])
         }
 
       }, (err) => {

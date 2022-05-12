@@ -1,40 +1,50 @@
 <div class="container pt-5">
-    <div class="row">
-        <div class="col">
-<h2 class="text-decoration-underline">
+  <div class="row">
+    <div class="col">
+      <h2 class="text-decoration-underline">
 
-    Book Appointment
-     <button (click)="check()"  class="btn btn-success btn-sm">check</button>
-</h2>
+        Book Appointment
+        <!-- <button (click)="check()" class="btn btn-success btn-sm">check</button> -->
+      </h2>
 
-            <div class="row">
-                <div class="col-md-6 d-block">
-                    <img src="https://img.icons8.com/color/96/000000/doctor-male-skin-type-1.png" height="200"
-                        width="200" />
-                    <h3>{{doctorData?.doctor_name}}</h3>
-                    <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat commodi possimus quaerat alias
-                        ducimus mollitia doloribus animi magnam deserunt delectus?</P>
-                </div>
-                <div class="col-md-6">
+      <div class="row pt-3">
+        <div class="col-md-6 d-block ">
+          <div class="pro_card ">
+            <img class="float-end doc_svg" src="../../../../assets/images/doc_svg.svg" height="200" width="200" />
 
-                    <form [formGroup]="appointmentFrom" (ngSubmit)="onSubmit()" >
-                        <div class="form-group">
-                          <label for="exampleFormControlInput1">Appointment Date</label>
-                          <input type="date" formControlName="appointment_date" name="appdate" (change)="getSlots($event)" class="form-control" id="appointmentDate" placeholder="name@example.com">
-                        </div>
-                        
-                        <div class="form-group">
-                          <label for="exampleFormControlInput1">Choose slots</label>
-                          <div class=" slots">
-                            <ng-container *ngFor="let s of slots;let i = index">
+            <h3>{{doctorData?.doctor_name}}</h3>
+            <h5>Availability </h5>
+            <i class="fal fa-sun-haze"></i> Morning  : <b>  {{doctorData?.day_start_time}}  </b> <br>
+            <i class="fal fa-moon pb-3"></i> Evening  : <b>  {{doctorData?.day_end_time}}</b>
+  
+  
+  
+            <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat commodi possimus quaerat alias
+              ducimus mollitia doloribus </P>
+          </div>
+        </div>
+        <div class="col-md-6">
 
-                                <input  formControlName="appointment_time"  class="d-none" type="radio" [id]="i" name="appointment_time" [value]="s.start" >
-                                <label [for]="i" [ngClass]="{'diseable_slot': !s.active}" >{{s.start}}-{{s.end}}</label>
+          <form [formGroup]="appointmentFrom" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Appointment Date</label>
+              <input type="date" [min]="minDate" formControlName="appointment_date" name="appdate"
+                (change)="getSlots($event)" class="form-control" id="appointmentDate" placeholder="name@example.com">
+            </div>
 
-                                <!-- <span [ngClass]="{'diseable_slot': !s.active}" >{{s.start}}-{{s.end}}</span> -->
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Choose slots</label>
+              <div class=" slots">
+                <ng-container *ngFor="let s of slots;let i = index">
 
-                            </ng-container>
-                              <!-- <span>12:30 - 01:30</span>
+                  <input formControlName="appointment_time" class="d-none" type="radio" [id]="i + 'CH'" name="appointment_time"
+                    [value]="s.start">
+                  <label [for]="i+ 'CH'" [ngClass]="{'diseable_slot': !s.active}">{{s.start}}-{{s.end}}</label>
+
+                  <!-- <span [ngClass]="{'diseable_slot': !s.active}" >{{s.start}}-{{s.end}}</span> -->
+
+                </ng-container>
+                <!-- <span>12:30 - 01:30</span>
                               <span class="diseable_slot" >12:30 - 01:30</span>
                               <span>12:30 - 01:30</span>
                               <span>12:30 - 01:30</span>
@@ -43,36 +53,39 @@
                               <span>12:30 - 01:30</span>
                               <span>12:30 - 01:30</span> -->
 
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                          <label for="exampleFormControlInput1">Patient name</label>
-                          <input type="text"  formControlName="patient_name" name="app_name" class="form-control" id="patientname" placeholder="Jon deo">
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleFormControlInput1">Patient Email </label>
-                          <input type="email"  formControlName="patinet_email" name="app_email"  class="form-control" id="patientemail" placeholder="Enter email">
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleFormControlInput1">Patient phone </label>
-                          <input type="text"  formControlName="patinet_phone" name="app_phone"  class="form-control" id="patientphone" placeholder="Enter phone">
-                        </div>
-                        
-                        <div class="form-group">
-                          <label for="exampleFormControlTextarea1">Details</label>
-                          <textarea  class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                        </div>
-                        <div class="form-group float-end">
-                          
-                            <button type="submit" class="btn btn-primary my-2">Book Appointment</button>
-                            
-                        </div>
-                      </form>
-
-
-                </div>
+              </div>
             </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Patient name</label>
+              <input type="text" formControlName="patient_name" name="app_name" class="form-control" id="patientname"
+                placeholder="Jon deo">
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Patient Email </label>
+              <input type="email" formControlName="patinet_email" name="app_email" class="form-control"
+                id="patientemail" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Patient phone </label>
+              <input type="text" formControlName="patinet_phone" name="app_phone" class="form-control" id="patientphone"
+                placeholder="Enter phone">
+            </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Details</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="form-group float-end">
+
+              <button type="submit" class="btn btn-primary my-2">Book Appointment</button>
+
+            </div>
+          </form>
+
+
         </div>
+      </div>
     </div>
+  </div>
 </div>

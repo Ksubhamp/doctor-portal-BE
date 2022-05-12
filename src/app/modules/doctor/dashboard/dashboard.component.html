@@ -9,7 +9,7 @@
 
                         <div class="row">
                             <div class="col-7">
-                                <h2>
+                                <h2 class="text-nowrap ">
                                     {{gretting_msg}}, <span class="doc_name"> {{doctor_data?.doctor_name}} </span>
                                 </h2>
                                 <p>Have a nice day</p>
@@ -26,14 +26,142 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card card-2">
+                                <p>Total Appoinment</p>
+                                <h2>{{patient_list.length}}</h2>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card card-3">
+                                <p>Appoinment Cancelled</p>
+                                <h2>{{cancelled_appoinment}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
 
-            <div class="row pt-5">
-                <div class="col">
-                    <div class="forms-group monthSelect pb-3">
-                        <input type="date" [ngModel]="selectDate" (change)="getdata($event)" name="" id="">
-                        
+            <div class="mh-300">
+
+                <div class="row pt-3">
+                    <div class="row">
+                        <div class="col">
+                            <div class="forms-group monthSelect pb-3">
+                                <input type="month" [ngModel]="selectDate" (change)="getdata($event)" name="" id="">
+                            </div>
+                        </div>
                     </div>
+                    <div class="col">
+
+                        <div class="row">
+                            <div class="col-2">
+                                <h4>Date</h4>
+                            </div>
+                            <div class="col-8">
+                                <div class="row">
+                                    <div class="col">
+                                        <h4>Name</h4>
+                                    </div>
+                                    <div class="col">
+                                        <h4>Status</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-container *ngFor="let g of grouped_data">
+                            <div class="row">
+                                <div class="col-2">
+                                    {{g.date | date : 'shortDate'}}
+
+                                </div>
+                                <div class="col-8">
+                                    <div *ngFor="let app of g.apps">
+
+
+
+                                        <div class="row">
+                                            <div class="col">
+                                                {{app.patient_name}}
+                                            </div>
+                                            <div class="col">
+                                                {{app.appointment_status}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                        </ng-container>
+
+
+                    </div>
+                    <div class="col">
+
+                        <div class="row">
+                            <div class="col-2">
+                                <h4>Date</h4>
+                            </div>
+                            <div class="col-10">
+                                <div class="row">
+                                    <div class="col">
+                                        <p># of Appointments</p>
+                                    </div>
+                                    <div class="col">
+                                        <p># of Appointment Closed </p>
+                                    </div>
+                                    <div class="col">
+                                        <p># of Appointment Cancelled </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-container *ngFor="let g of grouped_data">
+                            <div class="row">
+                                <div class="col-2">
+                                    {{g.date | date : 'shortDate'}}
+
+                                </div>
+                                <div class="col-10">
+
+
+
+                                    <div class="row">
+                                        <div class="col">
+                                            {{g.apps.length}}
+                                        </div>
+                                        <div class="col">
+                                            {{g.closed}}
+                                        </div>
+                                        <div class="col">
+                                            {{g.Cancelled}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                        </ng-container>
+
+
+                    </div>
+                </div>
+                <div *ngIf="grouped_data && grouped_data.length == 0" class="row">
+                    <div class="col text-center">
+                        <img src="../../../../assets//images/noRecordFound.svg" alt="" srcset="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pt-2">
+
+                <div class="col">
 
                     <table class="table">
 
@@ -46,8 +174,8 @@
                             <th scope="col">Status</th>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let p of patient_list">
-                                <td scope="row">1</td>
+                            <tr *ngFor="let p of patient_list;let i = index">
+                                <td scope="row">{{i+1}}</td>
                                 <td style="position: relative;"><img class="patient_img" height="30"
                                         src="https://img.icons8.com/external-konkapp-outline-color-konkapp/64/000000/external-patient-virus-transmission-konkapp-outline-color-konkapp.png" />
 
@@ -55,7 +183,33 @@
                                 <td>{{p.patinet_phone}}</td>
                                 <td>{{p.appointment_date | date:'shortDate'}}</td>
                                 <td>{{p.appointment_time}}</td>
-                                <td>{{p.appointment_status}}</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span class="w-100">
+
+                                                {{p.appointment_status}}
+                                            </span>
+
+                                        </div>
+                                        <div *ngIf="p.appointment_status == 'Open'" class="col">
+
+                                            <a class="dropdown-toggle" role="button" id="dropdownMenuLink"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                            </a>
+
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <a class="dropdown-item"
+                                                    (click)="updateStatus(p._id,'Closed')">Close</a>
+                                                <a class="dropdown-item"
+                                                    (click)="updateStatus(p._id,'Cancelled')">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </td>
                             </tr>
 
                         </tbody>
@@ -63,55 +217,6 @@
                     </table>
                 </div>
             </div>
-
-            <div class="row">
-
-                <div class="col">
-                    <div class="row">
-                        <div class="col-2">
-                            <h4>Date</h4>
-                        </div>
-                        <div class="col-2">
-                            <div class="row">
-                                <div class="col">
-                                    <h4>Name</h4>
-                                </div>
-                                <div class="col">
-                                    <h4>Status</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <ng-container *ngFor="let g of grouped_data">
-                        <div class="row">
-                            <div class="col-2">
-                                {{g.date | date : 'shortDate'}}
-
-                            </div>
-                            <div class="col-2">
-                                <div *ngFor="let app of g.apps">
-
-
-
-                                    <div class="row">
-                                        <div class="col">
-                                            {{app.patient_name}}
-                                        </div>
-                                        <div class="col">
-                                            {{app.appointment_status}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-
-                    </ng-container>
-
-
-                </div>
-            </div>
-
 
 
 

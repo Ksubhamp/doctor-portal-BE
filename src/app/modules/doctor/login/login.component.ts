@@ -4,7 +4,6 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/service/data.service';
 import { AuthService } from 'src/app/service/auth.service';
-import { LocalstorageService } from 'src/app/service/localstorage.service';
 
 @Component({
   selector: 'app-login',
@@ -14,28 +13,30 @@ import { LocalstorageService } from 'src/app/service/localstorage.service';
 export class LoginComponent implements OnInit {
   loginFrom = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['',Validators.required],
+    password: ['', Validators.required],
   })
   constructor(
-    private stroageService: LocalstorageService,
     private authService: AuthService,
     private dataService: DataService,
-    private toastr: ToastrService,
     private router: Router,
     private fb: FormBuilder
-  ) { 
-    if (stroageService.get('token')) {
+  ) {
+    if (dataService.getCookie('token')) {
       this.router.navigate(['/admin/dashboard']);
     }
   }
 
   ngOnInit(): void {
   }
-  onSubmit(){
+  onSubmit() {
     if (this.loginFrom.valid) {
-      this.authService.login(this.loginFrom.value).subscribe((res:any)=>{
+      this.authService.login(this.loginFrom.value).subscribe((res: any) => {
         if (res.token) {
-          this.stroageService.set('token',res.token);
+          this.dataService.setCookie('token', res.token);
+
+          // this.stroageService.set('token', res.token);
+          this.dataService.isLogin.next(true);
+
           this.router.navigate(['/admin/dashboard']);
         }
       })

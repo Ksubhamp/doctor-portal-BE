@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DoctorlistComponent } from './doctorlist.component';
+ import {DataService  } from "../../../service/data.service";
+import { HttpClientModule } from '@angular/common/http';
 
 describe('DoctorlistComponent', () => {
   let component: DoctorlistComponent;
@@ -8,7 +10,8 @@ describe('DoctorlistComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DoctorlistComponent ]
+      declarations: [ DoctorlistComponent ],
+      imports: [HttpClientModule],
     })
     .compileComponents();
   });
@@ -22,4 +25,9 @@ describe('DoctorlistComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
+  it('should be created', () => {
+    const service: DataService = TestBed.get(DataService);
+    expect(service).toBeTruthy();
+   });
 });

@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DataService } from 'src/app/service/data.service';
 
 import { DashboardComponent } from './dashboard.component';
 
@@ -8,7 +10,9 @@ describe('DashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
+      declarations: [ DashboardComponent ],
+      imports: [HttpClientModule],
+
     })
     .compileComponents();
   });
@@ -22,4 +26,9 @@ describe('DashboardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should be created', () => {
+    const service: DataService = TestBed.get(DataService);
+    expect(service).toBeTruthy();
+   });
 });

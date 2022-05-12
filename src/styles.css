@@ -1,10 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Luckiest+Guy&display=swap');
 header {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-
 .p-12 {
     padding: 12px;
+}
+
+.w-100 {
+    width: 100px;
 }
 
 .slots>label {
@@ -74,3 +78,49 @@ input[type="radio"]:checked+label {
     cursor: pointer;
 }
 
+.card-3 {
+    background-color: #ff5b5b30 !important;
+    white-space: nowrap;
+}
+
+.card-2 {
+    background-color: #e2fcff !important;
+    white-space: nowrap;
+}
+
+.card-2,
+.card-3>p {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 0px;
+}
+
+.mh-300 {
+    min-height: 300px;
+}
+
+.morning_icon:before {
+    content: "\e97e";
+}
+.pro_card{
+    background: #ecf4ff;
+    padding: 20px;
+    border-radius: 14px;
+    position: relative;
+}
+
+.btn-primary{
+    background-color: #00acc1 !important;
+    border-color: #00acc1 !important;
+}
+
+.doc_svg{
+    /* position: absolute; */
+    right: 17px;
+    height: 163px;
+}
+.logo_font{
+
+    /* font-family:'Luckiest Guy', cursive; */
+    font-size: 40px;
+}
