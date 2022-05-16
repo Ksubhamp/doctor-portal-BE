@@ -15,6 +15,12 @@ There is three pages.
     3. Doctor dashboard.
     4. Book appoinment 
 
+## Test Data to login
+
+email: Gouri@ams.com
+password : testuser
+
+
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
