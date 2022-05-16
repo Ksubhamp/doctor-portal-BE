@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     day_end_time: ['', Validators.required],
   })
   submitted: boolean = false;
-  isLogin: boolean = false;
+  isLogin: boolean = true;
 
   constructor(
     private authService: AuthService,

@@ -10,38 +10,35 @@ import { Observable, tap } from 'rxjs';
 import { LocalstorageService } from '../service/localstorage.service';
 import { Router } from '@angular/router';
 import { DataService } from '../service/data.service';
+import { AuthService } from '../service/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
-    private stroageService:LocalstorageService,
-    private dataSerivce:DataService,
-    private router:Router
-  ) {}
+    private stroageService: LocalstorageService,
+    private authService: AuthService,
+  ) { }
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     // const token = this.stroageService.get('token');
     const token = this.stroageService.get('token');
     if (token) {
       req = req.clone({
-        url:  req.url,
+        url: req.url,
         setHeaders: {
           Authorization: `Bearer ${token}`
         }
       });
     }
-    return next.handle(req).pipe( tap(() => {},
+    return next.handle(req).pipe(tap(() => { },
       (err: any) => {
-      if (err instanceof HttpErrorResponse) {
-        if (err.status !== 401) {
-         return;
+        if (err instanceof HttpErrorResponse) {
+          if (err.status !== 401) {
+            return;
+          }
+          this.authService.logout();
         }
-        this.dataSerivce.deleteAllCookie();
-        this.dataSerivce.isLogin.next(true);
-        this.stroageService.remove('token')
-        this.router.navigate(['/admin']);
-      }
-    }));
+      }));
   }
 }
