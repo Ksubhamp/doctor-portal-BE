@@ -17,8 +17,8 @@ There is three pages.
 
 ## Test Data to login
 
-email: Gouri@ams.com
-password : testuser
+email: **`Gouri@ams.com`**
+password : **`testuser`**
 
 
 ## Build
