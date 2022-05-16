@@ -57,30 +57,30 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col ">
 
                         <div class="row">
                             <div class="col-2">
-                                <h4>Date</h4>
+                                <h5>Date</h5>
                             </div>
-                            <div class="col-8">
+                            <div class="col-10">
                                 <div class="row">
                                     <div class="col">
-                                        <h4>Name</h4>
+                                        <h5>Name</h5>
                                     </div>
                                     <div class="col">
-                                        <h4>Status</h4>
+                                        <h5>Status</h5>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <ng-container *ngFor="let g of grouped_data">
-                            <div class="row">
+                            <div class="row list1 ">
                                 <div class="col-2">
                                     {{g.date | date:'dd/MM/yy'}}
 
                                 </div>
-                                <div class="col-8">
+                                <div class="col-10">
                                     <div *ngFor="let app of g.apps">
 
 
@@ -96,34 +96,35 @@
                                     </div>
                                 </div>
                             </div>
-                            <br>
+                            <!-- <br> -->
 
                         </ng-container>
 
 
                     </div>
+                    <div class="col-1"></div>
                     <div class="col">
 
-                        <div class="row">
+                        <div class="row ">
                             <div class="col-2">
-                                <h4>Date</h4>
+                                <h5>Date</h5>
                             </div>
                             <div class="col-10">
-                                <div class="row">
+                                <div class="row text-center">
                                     <div class="col">
-                                        <p># of Appointments</p>
+                                        <h5>Total</h5>
                                     </div>
                                     <div class="col">
-                                        <p># of Appointment Closed </p>
+                                        <h5> Closed </h5>
                                     </div>
                                     <div class="col">
-                                        <p># of Appointment Cancelled </p>
+                                        <h5> Cancelled </h5>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <ng-container *ngFor="let g of grouped_data">
-                            <div class="row">
+                            <div class="row list1">
                                 <div class="col-2">
                                     {{g.date | date:'dd/MM/yy'}}
 
@@ -132,7 +133,7 @@
 
 
 
-                                    <div class="row">
+                                    <div class="row text-center">
                                         <div class="col">
                                             {{g.apps.length}}
                                         </div>
@@ -145,7 +146,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <br>
+                            <!-- <br> -->
 
                         </ng-container>
 

@@ -1,6 +1,6 @@
 .user_card {
-    height: 400px;
-    width: 350px;
+    min-height: 400px;
+    width: 400px;
     margin-top: auto;
     margin-bottom: auto;
     background: #fff;

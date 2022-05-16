@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     // const token = this.stroageService.get('token');
-    const token = this.dataSerivce.getCookie('token');
+    const token = this.stroageService.get('token');
     if (token) {
       req = req.clone({
         url:  req.url,

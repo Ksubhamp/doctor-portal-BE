@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/service/data.service';
@@ -15,13 +15,18 @@ export class BookAppointmentComponent implements OnInit {
   slots: any = [];
   doctor_id: any = '';
   minDate:any='';
+  submitted:boolean= false;
   appointmentFrom = this.fb.group({
-    doctor_id: [''],
-    appointment_date: [''],
-    appointment_time: [''],
-    patient_name: [''],
+    doctor_id: ['',Validators.required],
+    appointment_date: ['',Validators.required],
+    appointment_time: ['',Validators.required],
+    patient_name: ['',Validators.required],
     patinet_email: ['', [Validators.required, Validators.email]],
-    patinet_phone: ['']
+    patinet_phone: ['',[
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(10)
+    ]]
   })
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -34,7 +39,8 @@ export class BookAppointmentComponent implements OnInit {
       this.doctor_id = params['id'];
       this.appointmentFrom.controls['doctor_id'].setValue(this.doctor_id);
       let d = new Date;
-      this.minDate = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate() +1).padStart(2, '0')
+      d.setDate(d.getDate() + 1)
+      this.minDate = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0')
       d.setHours(0, 0, 0, 0)
       this.appointmentFrom.controls['appointment_date'].setValue(this.getDateFormat(d));
       this.setSlots(d)
@@ -44,6 +50,10 @@ export class BookAppointmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  get f(): { [key: string]: AbstractControl } {
+    return this.appointmentFrom.controls;
   }
 
   setSlots(d: any) {
@@ -63,11 +73,11 @@ export class BookAppointmentComponent implements OnInit {
   }
   onSubmit() {
     console.log(this.appointmentFrom.value);
-
+    this.submitted = true
     if (this.appointmentFrom.valid) {
       this.dataService.bookAppointment(this.appointmentFrom.value).subscribe((res: any) => {
         if (res.status) {
-          this.toastr.success(res.msg);
+          this.toastr.success(res.message);
           this.appointmentFrom.reset()
           this.router.navigate(['/'])
         }

@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
   selectedDate:any;
   constructor(
     private dataService: DataService,
+    private stroageService : LocalstorageService
   ) {
     let d = new Date();
     // this.selectDate = "2022-03";
@@ -47,7 +48,7 @@ export class DashboardComponent implements OnInit {
 
       if (res.status) {
         this.doctor_data = res.data?.doctor;
-        this.dataService.setCookie('doctor_data',JSON.stringify(this.doctor_data))
+        this.stroageService.set('doctor_data',JSON.stringify(this.doctor_data))
         this.dataService.profileData.next(this.doctor_data);
         this.patient_list = res.data?.l;
         this.raw_data = res.data?.groupData;

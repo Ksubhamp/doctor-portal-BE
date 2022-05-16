@@ -50,22 +50,22 @@ fdescribe('LoginComponent', () => {
       "timeStamp": 1652079754927,
       "token_expaire": null
     };
-    // component.loginFrom.patchValue({
+    // component.loginForm.patchValue({
     //   "email": "Gouri@ams.com",
     //   "password": "testuser"
     // });
-    component.loginFrom.controls['email'].setValue('Gouri@ams.com');
-    component.loginFrom.controls['password'].setValue('testuser');
+    component.loginForm.controls['email'].setValue('Gouri@ams.com');
+    component.loginForm.controls['password'].setValue('testuser');
 
     spyOn(auth_service, "login").and.callFake(() => {
       return of(returnVal)
     })
     // authservice.login
     
-    // component.loginFrom.valid = true;
+    // component.loginForm.valid = true;
     component.onSubmit();
-    expect(component.loginFrom.valid).toBeTruthy();
-    // if (component.loginFrom.valid) {
+    expect(component.loginForm.valid).toBeTruthy();
+    // if (component.loginForm.valid) {
     // } else {
 
     // }
