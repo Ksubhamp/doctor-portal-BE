@@ -6,6 +6,7 @@ import { DoctorlistComponent } from './doctorlist/doctorlist.component';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from '../Materia/mat.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppointmentRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule
   ]
 })
 export class AppointmentModule { }

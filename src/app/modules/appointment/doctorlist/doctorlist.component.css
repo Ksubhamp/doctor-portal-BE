@@ -1,6 +1,6 @@
 
 .card {
-    width: 350px;
+    /* max-width: 350px; */
     background-color: #efefef;
     border: none;
     cursor: pointer;

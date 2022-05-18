@@ -1,7 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/service/data.service';
 import { LocalstorageService } from 'src/app/service/localstorage.service';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +26,13 @@ export class DashboardComponent implements OnInit {
   patient_list:any[]=[];
   grouped_data:any[]=[];
   selectedDate:any;
+
+
+  displayedColumns: string[] = ['position', 'Patient Name', 'Patient Phone', 'Appointment Date',"Appointment Time","Status"];
+  dataSource :any[]=[];
+  dataSources = new MatTableDataSource<PeriodicElement>(this.dataSource);
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+
   constructor(
     private dataService: DataService,
     private stroageService : LocalstorageService
@@ -38,7 +54,9 @@ export class DashboardComponent implements OnInit {
       this.gretting_msg = 'Good evening';
     }
   }
-
+  ngAfterViewInit() {
+    this.dataSources.paginator = this.paginator != undefined ?this.paginator:null;
+  }
   ngOnInit(): void {
   }
 
@@ -51,6 +69,10 @@ export class DashboardComponent implements OnInit {
         this.stroageService.set('doctor_data',JSON.stringify(this.doctor_data))
         this.dataService.profileData.next(this.doctor_data);
         this.patient_list = res.data?.l;
+        this.dataSource = this.patient_list.map((e,i)=>{
+          e['position'] = i+1;
+          return e;
+        })
         this.raw_data = res.data?.groupData;
         this.cancelled_appoinment = this.patient_list.filter(a => a.appointment_status == 'Cancelled').length;
 

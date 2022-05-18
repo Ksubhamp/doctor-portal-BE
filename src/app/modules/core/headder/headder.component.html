@@ -29,13 +29,14 @@
                 </li>
                 <li *ngIf="isLogin" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle"id="navbarDropdown"
-                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        role="button" [matMenuTriggerFor]="menu">
                         {{doctorData?.doctor_name}}
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item"  [routerLink]="['/admin/dashboard']" >Dashboard</a>
-
-                    </div>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item  [routerLink]="['/admin/dashboard']" >Dashboard</button>
+                        <button mat-menu-item>Logout</button>
+                      </mat-menu>
+                   
                 </li>
                 <li  *ngIf="isLogin" class="nav-item" >
                     <a class="nav-link" >

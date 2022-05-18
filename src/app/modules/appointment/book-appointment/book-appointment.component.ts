@@ -24,8 +24,9 @@ export class BookAppointmentComponent implements OnInit {
     patinet_email: ['', [Validators.required, Validators.email]],
     patinet_phone: ['',[
       Validators.required,
-      Validators.minLength(10),
-      Validators.maxLength(10)
+      Validators.pattern("[0-9 ]{10}"),
+      // Validators.minLength(10),
+      // Validators.maxLength(10)
     ]]
   })
   constructor(

@@ -9,28 +9,33 @@
 
       <div class="row pt-3">
         <div class="col-md-6 d-block ">
-          <div class="pro_card ">
+          <mat-card class="pro_card ">
             <img class="float-end doc_svg" src="../../../../assets/images/doc_svg.svg" height="200" width="200" />
 
-            <h3>{{doctorData?.doctor_name}}</h3>
-            <h5>Availability </h5>
-            <i class="fal fa-sun-haze"></i> Morning : <b> {{doctorData?.day_start_time}} </b> <br>
-            <i class="fal fa-moon pb-3"></i> Evening : <b> {{doctorData?.day_end_time}}</b>
+            <mat-card-title>{{doctorData?.doctor_name}}</mat-card-title>
+            <mat-card-content>
+
+              <h5>Availability </h5>
+              <i class="fal fa-sun-haze"></i> Morning : <b> {{doctorData?.day_start_time}} </b> <br>
+              <i class="fal fa-moon pb-3"></i> Evening : <b> {{doctorData?.day_end_time}}</b>
 
 
 
-            <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat commodi possimus quaerat alias
-              ducimus mollitia doloribus </P>
-          </div>
+              <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat commodi possimus quaerat alias
+                ducimus mollitia doloribus </P>
+            </mat-card-content>
+          </mat-card>
         </div>
         <div class="col-md-6">
 
           <form [formGroup]="appointmentFrom" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-              <label for="exampleFormControlInput1">Appointment Date</label>
-              <input type="date" [min]="minDate" formControlName="appointment_date" name="appdate"
-                (change)="getSlots($event)" class="form-control" id="appointmentDate" placeholder="name@example.com">
-            </div>
+            <mat-form-field class="form-group w-100">
+              <mat-label for="exampleFormControlInput1">Appointment Date</mat-label>
+              <input matInput type="date" [min]="minDate" formControlName="appointment_date" name="appdate"
+                (change)="getSlots($event)" class="form-control" id="appointmentDate">
+
+
+            </mat-form-field>
 
             <div class="form-group">
               <label for="exampleFormControlInput1">Choose slots</label>
@@ -44,9 +49,12 @@
                   <!-- <span [ngClass]="{'diseable_slot': !s.active}" >{{s.start}}-{{s.end}}</span> -->
 
                 </ng-container>
-                <div *ngIf="submitted  && f['appointment_time'].errors" class="fomr_error">
-                  <div *ngIf="f['appointment_time'].errors['required']">Choose a time slot.</div>
-                </div>
+                <mat-error *ngIf="submitted && f['appointment_time'].errors && f['appointment_time'].errors['required']">
+                  Choose a time slot.
+                </mat-error>
+
+
+               
                 <!-- <span>12:30 - 01:30</span>
                               <span class="diseable_slot" >12:30 - 01:30</span>
                               <span>12:30 - 01:30</span>
@@ -59,31 +67,49 @@
               </div>
             </div>
 
-            <div class="form-group">
-              <label for="exampleFormControlInput1">Patient name</label>
-              <input type="text" formControlName="patient_name" name="app_name" class="form-control" id="patientname"
-                placeholder="Jon deo">
-              <div *ngIf="submitted  && f['patient_name'].errors" class="fomr_error">
-                <div *ngIf="f['patient_name'].errors['required']">Name is required</div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="exampleFormControlInput1">Patient Email </label>
-              <input type="email" formControlName="patinet_email" name="app_email" class="form-control"
+            <mat-form-field class="form-group w-100">
+              <mat-label for="exampleFormControlInput1">Patient name</mat-label>
+              <input matInput type="text" formControlName="patient_name" name="app_name" class="form-control"
+                id="patientname" placeholder="Jon deo">
+<!--              
+                <mat-error *ngIf="f['patient_name'].errors && f['patient_name'].errors['pattern']">
+                  Please enter a valid phone munber
+                </mat-error> -->
+                <mat-error *ngIf="f['patient_name'].errors && f['patient_name'].errors['required']">
+                  Name is required 
+                </mat-error>
+
+            </mat-form-field>
+            <mat-form-field class="form-group w-100">
+              <mat-label for="exampleFormControlInput1">Patient Email </mat-label>
+
+              <input matInput type="email" formControlName="patinet_email" name="app_email" class="form-control"
                 id="patientemail" placeholder="Enter email">
-                <div *ngIf="submitted  && f['patinet_email'].errors" class="fomr_error">
-                  <div *ngIf="f['patinet_email'].errors['required']">Email is required</div>
-                  <div *ngIf="f['patinet_email'].errors['email']">Email is invalid</div>
-                </div>
-            </div>
-            <div class="form-group">
-              <label for="exampleFormControlInput1">Patient phone </label>
-              <input type="text" formControlName="patinet_phone" name="app_phone" class="form-control" id="patientphone"
-                placeholder="Enter phone">
-                <div *ngIf="submitted  && f['patinet_phone'].errors && appointmentFrom" class="fomr_error">
-                  <div *ngIf="f['patinet_phone'].errors['required']">Phone is required</div>
-                </div>
-            </div>
+
+              <mat-error *ngIf="f['patinet_email'].errors && f['patinet_email'].errors['email']">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="f['patinet_email'].errors && f['patinet_email'].errors['required']">
+                Email is required 
+              </mat-error>
+
+
+
+            </mat-form-field>
+            <mat-form-field class="form-group w-100">
+              <mat-label for="exampleFormControlInput1">Patient phone </mat-label>
+              <input matInput type="text" formControlName="patinet_phone" name="app_phone" class="form-control"
+                id="patientphone" placeholder="Enter phone">
+
+                <mat-error *ngIf="f['patinet_phone'].errors && f['patinet_phone'].errors['pattern']">
+                  Please enter a valid phone munber
+                </mat-error>
+                <mat-error *ngIf="f['patinet_phone'].errors && f['patinet_phone'].errors['required']">
+                  Phone is required 
+                </mat-error>
+  
+            
+            </mat-form-field>
 
             <!-- <div class="form-group">
               <label for="exampleFormControlTextarea1">Details</label>
@@ -91,7 +117,7 @@
             </div> -->
             <div class="form-group float-end">
 
-              <button type="submit" class="btn btn-primary my-2">Book Appointment</button>
+              <button mat-raised-button color="accent" type="submit" class="btn my-2">Book Appointment</button>
 
             </div>
           </form>

@@ -52,7 +52,7 @@ input[type="radio"]:checked+label {
     border-radius: 50%;
     padding: 2px;
     position: absolute;
-    left: -30px;
+    left: -4px;
 }
 
 .monthSelect {
@@ -126,7 +126,9 @@ input[type="radio"]:checked+label {
 .logo_font {
     font-size: 40px;
 }
-
+.f-18{
+    font-size: 18px !important;
+}
 .list1 {
     padding: 8px 5px;
     border: 1px solid #f7f7f7;
@@ -142,3 +144,5 @@ input[type="radio"]:checked+label {
     font-size: .875em;
     color: #dc3545;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

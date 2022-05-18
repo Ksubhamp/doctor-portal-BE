@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeadderComponent } from './headder/headder.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../Materia/mat.module';
 
 
 
@@ -13,7 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ],
   exports:[HeadderComponent,  FormsModule,
   ReactiveFormsModule]
