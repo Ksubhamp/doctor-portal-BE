@@ -30,7 +30,7 @@ export class DataService {
   }
 
   dashboardData(date: any) {
-    return this.http.post(this.baseUrl + 'doctor/dashboard', { date })
+    return this.http.post(this.baseUrl + 'doctor/dashboard?page=1&limit=100', { date })
   }
 
   updateAppoinmentStatus(id: any, appointment_status: any) {

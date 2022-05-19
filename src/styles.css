@@ -129,6 +129,9 @@ input[type="radio"]:checked+label {
 .f-18{
     font-size: 18px !important;
 }
+.f-20{
+    font-size: 20px !important;
+}
 .list1 {
     padding: 8px 5px;
     border: 1px solid #f7f7f7;

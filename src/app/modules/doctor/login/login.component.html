@@ -3,7 +3,7 @@
         <div class="col-6"></div>
         <div class="col-6 pt-5">
             <div class="d-flex justify-content-center h-100">
-                <div class="user_card">
+                <mat-card class="card">
                     <div class="d-flex justify-content-center">
                         <div class="brand_logo_container">
                             <img src="https://img.icons8.com/color/96/000000/doctor-male-skin-type-1.png"
@@ -14,27 +14,54 @@
                     </div>
                     <div *ngIf="isLogin" class="d-flex justify-content-center form_container">
                         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                            <div class="input-group mb-3">
+                            <!-- <div class="input-group mb-3">
                                 <div class="input-group-append">
                                     <span class="input-group-text p-12"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="" formControlName="email" class="form-control input_user"
+                                <input  matInput type="text" name="" formControlName="email" class="form-control input_user"
                                     value="" placeholder="username">
-                                <!-- <div *ngIf="submitted  && f['email'].errors" class="fomr_error">
-                                    <div *ngIf="f['email'].errors['required']">Enter .</div>
-                                  </div> -->
+                            </div> -->
 
-                            </div>
+                            <mat-form-field class="form-group w-100 px-5">
+                                <mat-label for="exampleFormControlInput1"> Email </mat-label>
+
+                                <input matInput type="email" formControlName="email" name="app_email"
+                                    class="form-control" id="patientemail" placeholder="Enter email">
+
+                                <mat-error *ngIf="f['email'].errors && f['email'].errors['email']">
+                                    Please enter a valid email address
+                                </mat-error>
+                                <mat-error *ngIf="f['email'].errors && f['email'].errors['required']">
+                                    Email is required
+                                </mat-error>
+
+                            </mat-form-field>
+
+
+                            <mat-form-field class="form-group w-100 px-5">
+                                <mat-label for="exampleFormControlInput1"> Password </mat-label>
+
+                                <input matInput type="text" formControlName="password" name="app_pass"
+                                    class="form-control" id="patientass" placeholder="Enter password">
+
+                                <mat-error *ngIf="f['password'].errors && f['password'].errors['required']">
+                                    Password is required
+                                </mat-error>
+
+                            </mat-form-field>
+
+                            <!-- 
                             <div class="input-group mb-2">
                                 <div class="input-group-append">
                                     <span class="input-group-text p-12"><i class="fas fa-key"></i></span>
                                 </div>
                                 <input type="password" formControlName="password" name=""
                                     class="form-control input_pass" value="" placeholder="password">
-                            </div>
+                            </div> -->
 
-                            <div class="d-flex justify-content-center mt-3 login_container">
-                                <button type="submit" name="button" class="btn login_btn">Login</button>
+                            <div class="d-flex justify-content-center mt-3 px-5">
+                                <button mat-raised-button type="submit" name="button"
+                                    class="btn login_btn">Login</button>
                             </div>
                         </form>
                     </div>
@@ -43,9 +70,6 @@
                         <div class="d-flex justify-content-center links">
                             Don't have an account? <a (click)="isLogin = false" class="ml-2">Sign Up</a>
                         </div>
-                        <!-- <div class="d-flex justify-content-center links">
-                            <a href="#">Forgot your password?</a>
-                        </div> -->
                     </div>
 
 
@@ -53,83 +77,110 @@
 
 
 
-                    <div *ngIf="!isLogin" class="px-5 justify-content-center form_container">
+                    <div *ngIf="!isLogin" class="d-flex justify-content-center form_container">
                         <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
 
 
-                            <div class="mb-2">
+
+                            <mat-form-field class="form-group w-100 px-5">
+                                <mat-label for="exampleFormControlInput1"> email </mat-label>
+
+                                <input matInput type="text" formControlName="email" name="reg_email"
+                                    class="form-control" id="emailsign" placeholder="Enter email">
+
+                                <mat-error *ngIf="s['email'].errors && s['email'].errors['email']">
+                                    Please enter a valid email address
+                                </mat-error>
+                                <mat-error *ngIf="s['email'].errors && s['email'].errors['required']">
+                                    Email is required
+                                </mat-error>
+
+                            </mat-form-field>
+
+                            <mat-form-field class="form-group w-100 px-5">
+                                <mat-label for="exampleFormControlInput1"> Password </mat-label>
+
+                                <input matInput type="text" formControlName="password" name="reg_passl"
+                                    class="form-control" id="signPass" placeholder="Enter password">
+                                <mat-error *ngIf="s['password'].errors && s['password'].errors['minlength']">
+                                    Password must be at least 6
+                                    characters.
+                                </mat-error>
+                                <mat-error *ngIf="s['password'].errors && s['password'].errors['required']">
+                                    Password is required
+                                </mat-error>
+
+                            </mat-form-field>
+
+                            <!-- <div class="mb-2">
                                 <label for="exampleInputEmail1" class="form-label">Email </label>
-                                <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" placeholder="Enter you email"
-                                    aria-describedby="emailHelp">
+                                <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1"
+                                    placeholder="Enter you email" aria-describedby="emailHelp">
                                 <div *ngIf="submitted  && s['email'].errors" class="fomr_error">
                                     <div *ngIf="s['email'].errors['required']">Email is required.</div>
                                     <div *ngIf="s['email'].errors['email']">Email is invalid</div>
                                 </div>
-                            </div>
-                            <div class="mb-2">
-                                <label for="exampleInputPassword1" class="form-label">Password </label>
-                                <input type="text" class="form-control" formControlName="password"
-                                    id="exampleInputPassword1"  placeholder="Enter you password">
-                                    <div *ngIf="submitted  && s['password'].errors" class="fomr_error">
-                                        <div *ngIf="s['password'].errors['required']">Password is required.</div>
-                                        <div *ngIf="s['password'].errors['minlength']"> Password must be at least 6 characters.</div>
-                                    </div>
-                            </div>
+                            </div> -->
+                            <mat-form-field class="form-group w-100 px-5">
+                                <mat-label for="exampleFormControlInput1"> Doctor name </mat-label>
 
-                            <div class="mb-2">
-                                <label for="exampleInputEmail1" class="form-label">Doctor name </label> 
-                                <input type="email" class="form-control" formControlName="name" id="exampleInputEmail1" placeholder="Enter you name"
-                                    aria-describedby="emailHelp">
-                                    <div *ngIf="submitted  && s['name'].errors" class="fomr_error">
-                                        <div *ngIf="s['name'].errors['required']">Name is required.</div>
-                                    </div>
-                            </div>
-                            <div class="mb-2">
-                                <label for="exampleInputPassword1" class="form-label">Slot Interval</label>
-                                <select class="form-control" formControlName="appointment_slot_time" name="slot" id="">
-                                    <option value="" disabled selected>Select your time interval</option>
-                                    <option value="15">15</option>
-                                    <option value="30">30</option>
-                                    <option value="45">45</option>
-                                    <option value="60">60</option>
-                                </select>
-                                <div *ngIf="submitted  && s['appointment_slot_time'].errors" class="fomr_error">
-                                    <div *ngIf="s['appointment_slot_time'].errors['required']">Slot time is required.</div>
-                                </div>
-                            </div>
-                            <div class="mb-2">
-                                <label for="exampleInputPassword1" class="form-label">Start time</label>
-                                <!-- <input type="text" class="form-control" formControlName="day_start_time"
-                                    id="exampleInputPassword1"> -->
-                                <select class="form-control" formControlName="day_start_time" name="slot" id="">
-                                    <option value="" disabled selected>SelectStart time</option>
-                                    <option value="09:00">09:00 AM</option>
-                                    <option value="09:30">09:30 AM</option>
-                                    <option value="10:00">10:00 AM</option>
-                                    <option value="10:30">10:30 AM</option>
-                                    <option value="11:00">11:00 AM</option>
-                                </select>
-                                <div *ngIf="submitted  && s['day_start_time'].errors" class="fomr_error">
-                                    <div *ngIf="s['day_start_time'].errors['required']">Start time is required.</div>
-                                </div>
+                                <input matInput type="text" formControlName="name" name="reg_passl" class="form-control"
+                                    id="exampleInputPassword1" placeholder="Enter password">
+
+                                <mat-error *ngIf="s['name'].errors && s['name'].errors['required']">
+                                    Name is required
+                                </mat-error>
 
 
-                            </div>
-                            <div class="mb-2">
-                                <label for="exampleInputPassword1" class="form-label">End time</label>
-                                <select class="form-control" formControlName="day_end_time" name="slot" id="">
-                                    <option value="" disabled selected>Select end time</option>
-                                    <option value="17:00">05:00 PM</option>
-                                    <option value="17:30">05:30 PM</option>
-                                    <option value="18:00">06:00 PM</option>
-                                    <option value="18:30">06:30 PM</option>
-                                    <option value="19:00">07:00 PM</option>
-                                </select>
-                                <div *ngIf="submitted  && s['day_end_time'].errors" class="fomr_error">
-                                    <div *ngIf="s['day_end_time'].errors['required']">End time is required.</div>
-                                </div>
-                            </div>
+                            </mat-form-field>
 
+                            <mat-form-field class="form-group w-100 px-5">
+                                <mat-label for="exampleFormControlInput1"> Slot Interval </mat-label>
+                                <mat-select formControlName="appointment_slot_time" name="reg_slot"
+                                    id="exampleInputslot1">
+                                    <mat-option value="" disabled selected>Select your time interval</mat-option>
+                                    <mat-option value="15">15</mat-option>
+                                    <mat-option value="30">30</mat-option>
+                                    <mat-option value="45">45</mat-option>
+                                    <mat-option value="60">60</mat-option>
+                                </mat-select>
+                                <mat-error
+                                    *ngIf="s['appointment_slot_time'].errors && s['appointment_slot_time'].errors['required']">
+                                    Slot time is required.
+                                </mat-error>
+
+                            </mat-form-field>
+                            <mat-form-field class="form-group w-100 px-5">
+                                <mat-label for="exampleFormControlInput1">Start time </mat-label>
+                                <mat-select formControlName="day_start_time" name="reg_s_time" id="example_s_time">
+                                    <mat-option value="" disabled selected>Select Start time</mat-option>
+                                    <mat-option value="09:00">09:00 AM</mat-option>
+                                    <mat-option value="09:30">09:30 AM</mat-option>
+                                    <mat-option value="10:00">10:00 AM</mat-option>
+                                    <mat-option value="10:30">10:30 AM</mat-option>
+                                    <mat-option value="11:00">11:00 AM</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="s['day_start_time'].errors && s['day_start_time'].errors['required']">
+                                    Start time is required.
+                                </mat-error>
+
+                            </mat-form-field>
+
+                            <mat-form-field class="form-group w-100 px-5">
+                                <mat-label for="exampleFormControlInput1">End time </mat-label>
+                                <mat-select formControlName="day_end_time" name="day_end_time" id="example_e_time">
+                                    <mat-option value="" disabled selected>Select end time</mat-option>
+                                    <mat-option value="17:00">05:00 PM</mat-option>
+                                    <mat-option value="17:30">05:30 PM</mat-option>
+                                    <mat-option value="18:00">06:00 PM</mat-option>
+                                    <mat-option value="18:30">06:30 PM</mat-option>
+                                    <mat-option value="19:00">07:00 PM</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="s['day_end_time'].errors && s['day_end_time'].errors['required']">
+                                    End time is required.
+                                </mat-error>
+
+                            </mat-form-field>
 
 
 
@@ -138,7 +189,7 @@
 
 
 
-                                <button type="submit" name="button" class="btn login_btn">Sign up</button>
+                                <button mat-raised-button  type="submit" name="button" class="btn login_btn">Sign up</button>
                             </div>
                         </form>
                     </div>
@@ -151,7 +202,7 @@
                             <a href="#">Forgot your password?</a>
                         </div> -->
                     </div>
-                </div>
+                </mat-card>
             </div>
 
         </div>

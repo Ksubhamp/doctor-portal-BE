@@ -13,10 +13,7 @@
                     <li class="nav-item active" [routerLink]="['/']" routerLinkActive="router-link-active">
                         <a class="nav-link" aria-current="page">Home</a>
                     </li>
-                    <!-- <li class="nav-item" [routerLink]="['/admin']" routerLinkActive="router-link-active">
-              <a class="nav-link"  >Login</a>
-            </li> -->
-
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
@@ -40,8 +37,9 @@
                 </li>
                 <li  *ngIf="isLogin" class="nav-item" >
                     <a class="nav-link" >
+                        <mat-icon  (click)="logout()"  matTooltip="Logout" class="power">power_settings_new</mat-icon>
 
-                        <i (click)="logout()" title="Logout" class="fal fa-power-off power"></i>
+                        <!-- <i (click)="logout()" matTooltip="Logout"  class="fal fa-power-off power"></i> -->
                     </a>
                 </li>
 
@@ -53,3 +51,27 @@
 
 
 </header>
+
+<!-- <mat-toolbar color="pri">
+    <div class="container">
+        
+        
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <img src="https://img.icons8.com/color/96/000000/doctor-male-skin-type-1.png" style="height: 66px;" />
+        <span class="f-20">Doctor Portal</span>
+        <span class="example-spacer"></span>
+
+        <a class="" aria-current="page">Home</a>
+
+
+
+        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+            <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+            <mat-icon>share</mat-icon>
+        </button>
+    </div>
+  </mat-toolbar> -->
