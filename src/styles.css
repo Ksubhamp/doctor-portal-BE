@@ -142,3 +142,8 @@ input[type="radio"]:checked+label {
     font-size: .875em;
     color: #dc3545;
 }
+.downloadPdf{
+    font-size: 24px;
+    margin-left: 13px;
+    cursor: pointer;
+}

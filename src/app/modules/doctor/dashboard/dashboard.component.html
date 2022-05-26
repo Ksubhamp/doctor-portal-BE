@@ -49,11 +49,12 @@
 
             <div class="mh-300">
 
-                <div class="row pt-3">
+                <div id="report" class="row pt-3">
                     <div class="row">
                         <div class="col">
                             <div class="forms-group monthSelect pb-3">
                                 <input type="month" [ngModel]="selectDate" (change)="getdata($event)" name="" id="">
+                                <i title="Download AS pdf" (click)="downloadPdf()" class="fal fa-download downloadPdf"></i>
                             </div>
                         </div>
                     </div>
