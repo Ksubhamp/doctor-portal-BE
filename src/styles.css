@@ -132,6 +132,9 @@ input[type="radio"]:checked+label {
 .f-20{
     font-size: 20px !important;
 }
+.f-24{
+    font-size: 24px !important;
+}
 .list1 {
     padding: 8px 5px;
     border: 1px solid #f7f7f7;
@@ -143,9 +146,15 @@ input[type="radio"]:checked+label {
 .list1:hover {
     background-color: #f3f2f2;
 }
+.title{
+    color: gray;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
 .fomr_error{
     font-size: .875em;
     color: #dc3545;
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+ 

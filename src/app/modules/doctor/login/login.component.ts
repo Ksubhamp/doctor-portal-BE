@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.minLength(5), Validators.required]],
     name: ['Dr. ', Validators.required],
+    doctor_title: ['', Validators.required],
     appointment_slot_time: ['', Validators.required],
     day_start_time: ['', Validators.required],
     day_end_time: ['', Validators.required],
@@ -90,6 +91,7 @@ export class LoginComponent implements OnInit {
       "name": s.name,
       "doctor": {
         "doctor_name": s.name,
+        "doctor_title": s.doctor_title,
         "appointment_slot_time": s.appointment_slot_time,
         "day_start_time": s.day_start_time,
         "day_end_time": s.day_end_time

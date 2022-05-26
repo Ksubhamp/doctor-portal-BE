@@ -7,13 +7,15 @@
                 <i class="fas fa-bars"></i>
             </button>
             <img src="https://img.icons8.com/color/96/000000/doctor-male-skin-type-1.png" />
-            <h3 class="me-5 logo_font">Doctor    Portal</h3>
+            <h3 class="me-5 logo_font">Doctor Portal</h3>
             <div class="collapse navbar-collapse float-right" id="navbarExample01">
                 <ul class="navbar-nav mr-auto mb-2 mb-lg-0 ml-5">
                     <li class="nav-item active" [routerLink]="['/']" routerLinkActive="router-link-active">
-                        <a class="nav-link" aria-current="page">Home</a>
+                        <a class="nav-link" aria-current="page">
+                            <mat-icon matTooltip="Home"> home</mat-icon>
+                        </a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
@@ -25,19 +27,20 @@
                     <a class="nav-link"> <b> Login</b> </a>
                 </li>
                 <li *ngIf="isLogin" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"id="navbarDropdown"
-                        role="button" [matMenuTriggerFor]="menu">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" [matMenuTriggerFor]="menu">
                         {{doctorData?.doctor_name}}
                     </a>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item  [routerLink]="['/admin/dashboard']" >Dashboard</button>
-                        <button mat-menu-item>Logout</button>
-                      </mat-menu>
-                   
+                        <button mat-menu-item matTooltip="Dashboard" [matTooltipPosition]="'left'" [routerLink]="['/admin/dashboard']">Dashboard</button>
+                        <button mat-menu-item matTooltip="Profile" [matTooltipPosition]="'left'" [routerLink]="['/admin/profile']">Profile 👨‍⚕️</button>
+                        <button (click)="logout()" matTooltip="Logout" [matTooltipPosition]="'left'" mat-menu-item>Logout</button>
+                    </mat-menu>
+
                 </li>
-                <li  *ngIf="isLogin" class="nav-item" >
-                    <a class="nav-link" >
-                        <mat-icon  (click)="logout()"  matTooltip="Logout" class="power">power_settings_new</mat-icon>
+                <li *ngIf="isLogin" class="nav-item">
+                    <a class="nav-link">
+                        <mat-icon (click)="logout()" matTooltip="Logout" class="power f-24">power_settings_new
+                        </mat-icon>
 
                         <!-- <i (click)="logout()" matTooltip="Logout"  class="fal fa-power-off power"></i> -->
                     </a>

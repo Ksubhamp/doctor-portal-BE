@@ -4,7 +4,7 @@
       <h2 class="text-decoration-underline">
 
         Book Appointment
-        <!-- <button (click)="check()" class="btn btn-success btn-sm">check</button> -->
+        <!-- <button (click)="openDialog('')" class="btn btn-success btn-sm">check</button> -->
       </h2>
 
       <div class="row pt-3">
@@ -12,7 +12,11 @@
           <mat-card class="pro_card ">
             <img class="float-end doc_svg" src="../../../../assets/images/doc_svg.svg" height="200" width="200" />
 
-            <mat-card-title>{{doctorData?.doctor_name}}</mat-card-title>
+            <mat-card-title class="mb-0">{{doctorData?.doctor_name}} </mat-card-title>
+            <span class="title">
+
+              {{doctorData?.doctor_title}}
+            </span>
             <mat-card-content>
 
               <h5>Availability </h5>
@@ -44,7 +48,7 @@
 
                   <input formControlName="appointment_time" class="d-none" type="radio" [id]="i + 'CH'"
                     name="appointment_time" [value]="s.start">
-                  <label [for]="i+ 'CH'" [ngClass]="{'diseable_slot': !s.active}">{{s.start}}-{{s.end}}</label>
+                  <label [for]="i+ 'CH'" [ngClass]="{'diseable_slot': !s.active}">{{s.start}} - {{s.end}}</label>
 
                   <!-- <span [ngClass]="{'diseable_slot': !s.active}" >{{s.start}}-{{s.end}}</span> -->
 

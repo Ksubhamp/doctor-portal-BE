@@ -10,10 +10,12 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from './core/auth.interceptor';
 import { CookieService } from 'ngx-cookie-service';
 import { MaterialModule } from './modules/Materia/mat.module';
+import { SuccessComponent } from './modules/dialog/success/success.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SuccessComponent
   ],
   imports: [
     BrowserModule,

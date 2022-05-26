@@ -4,6 +4,8 @@ import { DataService } from 'src/app/service/data.service';
 import { LocalstorageService } from 'src/app/service/localstorage.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatDatepicker} from '@angular/material/datepicker';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 export interface PeriodicElement {
   name: string;
@@ -15,18 +17,27 @@ export interface PeriodicElement {
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class DashboardComponent implements OnInit {
   gretting_msg:any="";
   doctor_data:any;
   selectDate : any ='';
   raw_data:any[]=[];
+  count:any;
   cancelled_appoinment:any;
   patient_list:any[]=[];
   grouped_data:any[]=[];
   selectedDate:any;
 
+  // expandedElement: PeriodicElement | null;
 
   displayedColumns: string[] = ['position', 'Patient Name', 'Patient Phone', 'Appointment Date',"Appointment Time","Status"];
   dataSource :any[]=[];
@@ -74,7 +85,7 @@ export class DashboardComponent implements OnInit {
           return e;
         })
         this.raw_data = res.data?.groupData;
-        this.cancelled_appoinment = this.patient_list.filter(a => a.appointment_status == 'Cancelled').length;
+        this.count = res.data?.count;
 
 
 
@@ -120,6 +131,14 @@ export class DashboardComponent implements OnInit {
     (err)=>{
 
     })
+  }
+
+  setMonthAndYear(normalizedMonthAndYear: any, datepicker: any) {
+    // const ctrlValue = this.date.value;
+    // ctrlValue.month(normalizedMonthAndYear.month());
+    // ctrlValue.year(normalizedMonthAndYear.year());
+    // this.date.setValue(ctrlValue);
+    datepicker.close();
   }
 
 }

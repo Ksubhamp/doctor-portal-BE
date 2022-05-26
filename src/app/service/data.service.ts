@@ -60,4 +60,8 @@ export class DataService {
     return this.cookieService.deleteAll();
   }
 
+  getProfile(){
+    return this.http.get(this.baseUrl + 'doctor/profile')
+  }
+  
 }

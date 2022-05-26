@@ -12,6 +12,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 const matrialModules = [
   MatButtonModule,
@@ -25,7 +27,8 @@ const matrialModules = [
   MatToolbarModule,
   MatIconModule,
   MatSelectModule,
-  MatChipsModule
+  MatChipsModule,
+  MatDialogModule
 ]
 @NgModule({
   declarations: [],
