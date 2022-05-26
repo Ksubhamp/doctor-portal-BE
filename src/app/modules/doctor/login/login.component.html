@@ -77,13 +77,23 @@
                             </div>
 
                             <div class="mb-2">
-                                <label for="exampleInputEmail1" class="form-label">Doctor name </label> 
-                                <input type="email" class="form-control" formControlName="name" id="exampleInputEmail1" placeholder="Enter you name"
+                                <label for="exampleInputname" class="form-label">Doctor name </label> 
+                                <input type="email" class="form-control" formControlName="name" id="exampleInputname" placeholder="Enter you name"
                                     aria-describedby="emailHelp">
                                     <div *ngIf="submitted  && s['name'].errors" class="fomr_error">
                                         <div *ngIf="s['name'].errors['required']">Name is required.</div>
                                     </div>
                             </div>
+
+                            <div class="mb-2">
+                                <label for="exampleInputdoctor_title" class="form-label">Doctor title </label> 
+                                <input type="email" class="form-control" formControlName="doctor_title" id="exampleInputdoctor_title" placeholder="Enter you name"
+                                    aria-describedby="emailHelp">
+                                    <div *ngIf="submitted  && s['doctor_title'].errors" class="fomr_error">
+                                        <div *ngIf="s['doctor_title'].errors['required']">Title is required.</div>
+                                    </div>
+                            </div>
+
                             <div class="mb-2">
                                 <label for="exampleInputPassword1" class="form-label">Slot Interval</label>
                                 <select class="form-control" formControlName="appointment_slot_time" name="slot" id="">
