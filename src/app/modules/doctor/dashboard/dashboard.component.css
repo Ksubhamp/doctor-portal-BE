@@ -1,6 +1,21 @@
 .card {
-    /* border-radius: 13px; */
+    border-radius: 13px;
     padding: 40px;
-    /* background: #ffc99a36; */
-    /* border: none; */
+    background: #ffc99a36;
+    border: none;
+}
+.radiaBtn{
+    color: orange;
+    border-color: orange;
+    box-shadow: none;
+}
+.radiaBtn:focus{
+    outline: none;
+    box-shadow: none;
+}
+input[type="radio"]:checked+label {
+    color: white !important;
+    border-color: #ffa500 !important;
+    background-color: #ffa500 !important
+
 }

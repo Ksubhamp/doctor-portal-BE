@@ -9,13 +9,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { MaterialModule } from '../Materia/mat.module';
 import { ProfileComponent } from './profile/profile.component';
+import { SharedModule } from '../componets/shared.module';
+import {NgxPaginationModule} from 'ngx-pagination'; 
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,9 @@ import { ProfileComponent } from './profile/profile.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule,
+    NgxPaginationModule
   ]
 })
 export class DoctorModule { }

@@ -11,11 +11,12 @@ import { AuthInterceptor } from './core/auth.interceptor';
 import { CookieService } from 'ngx-cookie-service';
 import { MaterialModule } from './modules/Materia/mat.module';
 import { SuccessComponent } from './modules/dialog/success/success.component';
-
+import { SharedModule } from './modules/componets/shared.module';
+import {NgxPaginationModule} from 'ngx-pagination'; 
 @NgModule({
   declarations: [
     AppComponent,
-    SuccessComponent
+    SuccessComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +26,9 @@ import { SuccessComponent } from './modules/dialog/success/success.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    MaterialModule
+    MaterialModule,
+    SharedModule,
+    NgxPaginationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

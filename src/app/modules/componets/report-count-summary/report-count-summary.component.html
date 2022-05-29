@@ -1,0 +1,53 @@
+<div id="reportcount">
+    <h2>Report summary</h2>
+
+    <div class="row ">
+        <div class="col-2">
+            <h5>Date</h5>
+        </div>
+        <div class="col-10">
+            <div class="row text-center">
+                <div class="col">
+                    <h5>Total</h5>
+                </div>
+                <div class="col">
+                    <h5> Closed </h5>
+                </div>
+                <div class="col position-relative">
+                    <h5> Cancelled </h5>
+                    <i title="Download AS pdf" (click)="downloadPdf('reportcount')"
+                        class="fal fa-download downloadPdf"></i>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngFor="let g of data">
+        <div class="row list1">
+            <div class="col-2">
+                {{g.date | date:'dd/MM/yy'}}
+
+            </div>
+            <div class="col-10">
+
+
+
+                <div class="row text-center">
+                    <div class="col">
+                        {{g.apps.length}}
+                    </div>
+                    <div class="col">
+                        {{g.closed}}
+                    </div>
+                    <div class="col">
+                        {{g.Cancelled}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <br> -->
+
+    </ng-container>
+
+
+</div>

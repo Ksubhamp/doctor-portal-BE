@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from "../../environments/environment";
-
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 @Injectable({
   providedIn: 'root'
 })
@@ -62,6 +63,23 @@ export class DataService {
 
   getProfile(){
     return this.http.get(this.baseUrl + 'doctor/profile')
+  }
+
+  downloadPdf(id:string) {
+    var data = document.getElementById(id) as HTMLElement;
+    html2canvas(data).then(canvas => {
+      // Few necessary setting options  
+      var imgWidth = 208;
+      var pageHeight = 295;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+      var position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
+      pdf.save(`${id}.pdf`); // Generated PDF   
+    });
   }
   
 }

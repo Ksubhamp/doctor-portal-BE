@@ -1,11 +1,17 @@
-<div class="container pt-5">
+<div class="container pt-2">
+    <div class="row">
+        <div class="col my-3">
+            <app-timer style="float: right;"></app-timer>
+
+        </div>
+    </div>
     <div class="row">
         <div class="col">
 
 
             <div class="row">
                 <div class="col-md-7">
-                    <mat-card class="card">
+                    <div class="card">
 
                         <div class="row">
                             <div class="col-7">
@@ -24,260 +30,209 @@
 
                             </div>
                         </div>
-                    </mat-card>
+                    </div>
                 </div>
 
                 <div class="col">
                     <div class="row">
                         <div class="col-6">
-                            <mat-card  class="card card-2">
-                                <p>Total Appoinment</p>
-                                <h2><span matTooltip="Total Appoinment" [matTooltipPosition]="'right'">  {{count.totalAppaointment}}</span></h2>
-                            </mat-card >
+                            <app-count [value]="count?.totalAppaointment" [title]="'Total Appoinment'"
+                                [bgcolor]="'#e2fcff'"> </app-count>
                         </div>
                         <div class="col-6">
-                            <mat-card  class="card card-3">
-                                <p>Appoinment Cancelled</p>
-                                <h2 > <span  matTooltip="Appoinment Cancelled" [matTooltipPosition]="'right'"  > {{count.cancelledAppaointment}} </span></h2>
-                            </mat-card >
+                            <app-count [value]="count?.cancelledAppaointment" [title]="'Appoinment Cancelled'"
+                                [bgcolor]="'#ff5b5b30'"> </app-count>
                         </div>
                     </div>
                 </div>
 
 
             </div>
+            <div class="row">
+                <div class="col">
 
-            <div class="mh-300">
+                    <div class="btn-group my-2" style="float: right;" role="group"
+                        aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" [(ngModel)]="tab" name="btnradio" id="btnradio1"
+                            autocomplete="off" value="Patients">
+                        <label class="btn radiaBtn" for="btnradio1">Patient</label>
 
-                <div class="row pt-3">
+                        <input type="radio" class="btn-check" [(ngModel)]="tab" name="btnradio" id="btnradio2"
+                            autocomplete="off" value="Report">
+                        <label class="btn radiaBtn " for="btnradio2">Report</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div [ngSwitch]="tab">
+                <div *ngSwitchCase="'Patients'" class="row pt-2">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h2>Patient List</h2>
+                        </div>
+                        <div class="col-md-4 offset-md-4">
+
+                            <mat-form-field class="form-group w-100">
+                                <mat-label for="exampleFormControlInput1">Filter</mat-label>
+                                <input matInput type="text" name="searchfilter" (input)="onSearch($event)"
+                                    class="form-control" id="searchfilter" #serachv>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col patientTabl">
+                        <table id="patientlist" class="table">
+
+                            <thead>
+                                <th scope="col">No.</th>
+                                <th scope="col">Patient Name</th>
+                                <th scope="col">Patient Phone</th>
+                                <th scope="col">Appointment Date</th>
+                                <th scope="col">Appointment Time</th>
+                                <th class="position-relative" scope="col">Status
+                                    <i title="Download AS pdf" (click)="downloadPdf('patientlist')"
+                                        class="fal fa-download downloadPdf"></i>
+
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let p of patient_list| paginate: { itemsPerPage: 8, currentPage: p };let i = index ">
+                                    <td scope="row">{{i+1}}</td>
+                                    <td style="position: relative;"><img class="patient_img" height="30"
+                                            src="https://img.icons8.com/external-konkapp-outline-color-konkapp/64/000000/external-patient-virus-transmission-konkapp-outline-color-konkapp.png" />
+
+                                        {{p.patient_name}}</td>
+                                    <td>{{p.patinet_phone}}</td>
+                                    <td>{{p.appointment_date | date:'dd/MM/yy'}}</td>
+                                    <td>{{p.appointment_time}}</td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <span class="w-100">
+
+                                                    {{p.appointment_status}}
+                                                </span>
+
+                                            </div>
+                                            <div *ngIf="p.appointment_status == 'Open'" class="col">
+
+                                                <a class="dropdown-toggle" role="button" id="dropdownMenuLink"
+                                                    [matMenuTriggerFor]="menu">
+
+                                                </a>
+                                                <mat-menu #menu="matMenu">
+                                                    <button mat-menu-item
+                                                        (click)="updateStatus(p._id,'Closed')">Close</button>
+                                                    <button mat-menu-item
+                                                        (click)="updateStatus(p._id,'Cancelled')">Cancel</button>
+                                                </mat-menu>
+                                            </div>
+                                        </div>
+
+
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+
+                        <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
+                  
+                                          <ng-container matColumnDef="position">
+                                              <th mat-header-cell *matHeaderCellDef class="f-18"> No. </th>
+                                              <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                                          </ng-container>
+                  
+                                          <ng-container matColumnDef="Patient Name">
+                                              <th mat-header-cell *matHeaderCellDef class="f-18"> Name </th>
+                                              <td mat-cell *matCellDef="let element">
+                  
+                                                  <img class="patient_img position-relative" height="30"
+                                                      src="https://img.icons8.com/external-konkapp-outline-color-konkapp/64/000000/external-patient-virus-transmission-konkapp-outline-color-konkapp.png" />
+                  
+                                                  {{element.patient_name}}
+                                              </td>
+                                          </ng-container>
+                  
+                                          <ng-container matColumnDef="Patient Phone">
+                                              <th mat-header-cell *matHeaderCellDef class="f-18"> Phone </th>
+                                              <td mat-cell *matCellDef="let element"> {{element.patinet_phone}} </td>
+                                          </ng-container>
+                  
+                                          <ng-container matColumnDef="Appointment Date">
+                                              <th mat-header-cell *matHeaderCellDef class="f-18"> Appointment Date </th>
+                                              <td mat-cell *matCellDef="let element"> {{element.appointment_date | date:'dd/MM/yy'}} </td>
+                                          </ng-container>
+                  
+                                          <ng-container matColumnDef="Appointment Time">
+                                              <th mat-header-cell *matHeaderCellDef class="f-18"> Time </th>
+                                              <td mat-cell *matCellDef="let element"> {{element.appointment_time}} </td>
+                                          </ng-container>
+                  
+                  
+                                          <ng-container matColumnDef="Status">
+                                              <th mat-header-cell *matHeaderCellDef class="f-18">Status </th>
+                                              <td mat-cell *matCellDef="let element"> {{element.appointment_status }}
+                                                  <ng-container *ngIf="element.appointment_status == 'Open'" class="col">
+                  
+                                                      <a class="dropdown-toggle" role="button" id="dropdownMenuLink"
+                                                          [matMenuTriggerFor]="menu">
+                  
+                                                      </a>
+                                                      <mat-menu #menu="matMenu">
+                                                          <button mat-menu-item
+                                                              (click)="updateStatus(element._id,'Closed')">Close</button>
+                                                          <button mat-menu-item
+                                                              (click)="updateStatus(element._id,'Cancelled')">Cancel</button>
+                                                      </mat-menu>
+                                                  </ng-container>
+                                              </td>
+                                          </ng-container>
+                  
+                                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                      </table> -->
+
+                    </div>
                     <div class="row">
                         <div class="col">
-                            <div class="forms-group monthSelect pb-3">
-                                <input type="month" [ngModel]="selectDate" (change)="getdata($event)" name="" id="">
-                            </div>
+                            <pagination-controls style="float: right;" (pageChange)="p = $event"></pagination-controls>
+
                         </div>
                     </div>
-                    <div class="col ">
 
+                </div>
+
+
+
+                <div *ngSwitchCase="'Report'" class="mh-300">
+
+                    <div class="row pt-3">
                         <div class="row">
-                            <div class="col-2">
-                                <h5>Date</h5>
-                            </div>
-                            <div class="col-10">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5>Name</h5>
-                                    </div>
-                                    <div class="col">
-                                        <h5>Status</h5>
-                                    </div>
+                            <div class="col">
+                                <div class="forms-group monthSelect pb-3">
+                                    <input type="month" [ngModel]="selectDate" (change)="getdata($event)" name="" id="">
                                 </div>
                             </div>
                         </div>
-                        <ng-container *ngFor="let g of grouped_data">
-                            <div class="row list1 ">
-                                <div class="col-2">
-                                    {{g.date | date:'dd/MM/yy'}}
-
-                                </div>
-                                <div class="col-10">
-                                    <div *ngFor="let app of g.apps">
-
-
-
-                                        <div class="row">
-                                            <div class="col">
-                                                {{app.patient_name}}
-                                            </div>
-                                            <div class="col">
-                                                {{app.appointment_status}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <br> -->
-
-                        </ng-container>
-
-
-                    </div>
-                    <div class="col-1"></div>
-                    <div class="col">
-
-                        <div class="row ">
-                            <div class="col-2">
-                                <h5>Date</h5>
-                            </div>
-                            <div class="col-10">
-                                <div class="row text-center">
-                                    <div class="col">
-                                        <h5>Total</h5>
-                                    </div>
-                                    <div class="col">
-                                        <h5> Closed </h5>
-                                    </div>
-                                    <div class="col">
-                                        <h5> Cancelled </h5>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col">
+                            <app-report-summary [data]="grouped_data"> </app-report-summary>
                         </div>
-                        <ng-container *ngFor="let g of grouped_data">
-                            <div class="row list1">
-                                <div class="col-2">
-                                    {{g.date | date:'dd/MM/yy'}}
 
-                                </div>
-                                <div class="col-10">
-
-
-
-                                    <div class="row text-center">
-                                        <div class="col">
-                                            {{g.apps.length}}
-                                        </div>
-                                        <div class="col">
-                                            {{g.closed}}
-                                        </div>
-                                        <div class="col">
-                                            {{g.Cancelled}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <br> -->
-
-                        </ng-container>
-
+                        <div class="col-1"></div>
+                        <div class="col">
+                            <app-report-count-summary [data]="grouped_data"> </app-report-count-summary>
+                        </div>
 
                     </div>
-                </div>
-                <div *ngIf="grouped_data && grouped_data.length == 0" class="row">
-                    <div class="col text-center">
-                        <img src="../../../../assets//images/noRecordFound.svg" alt="" srcset="">
+                    <div *ngIf="grouped_data && grouped_data.length == 0" class="row">
+                        <div class="col text-center">
+                            <img src="../../../../assets//images/noRecordFound.svg" alt="" srcset="">
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="row pt-2">
-
-                <div class="col">
-
-                    <!-- <table class="table">
-
-                        <thead>
-                            <th scope="col">No.</th>
-                            <th scope="col">Patient Name</th>
-                            <th scope="col">Patient Phone</th>
-                            <th scope="col">Appointment Date</th>
-                            <th scope="col">Appointment Time</th>
-                            <th scope="col">Status</th>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let p of patient_list;let i = index">
-                                <td scope="row">{{i+1}}</td>
-                                <td style="position: relative;"><img class="patient_img" height="30"
-                                        src="https://img.icons8.com/external-konkapp-outline-color-konkapp/64/000000/external-patient-virus-transmission-konkapp-outline-color-konkapp.png" />
-
-                                    {{p.patient_name}}</td>
-                                <td>{{p.patinet_phone}}</td>
-                                <td>{{p.appointment_date | date:'dd/MM/yy'}}</td>
-                                <td>{{p.appointment_time}}</td>
-                                <td>
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <span class="w-100">
-
-                                                {{p.appointment_status}}
-                                            </span>
-
-                                        </div>
-                                        <div *ngIf="p.appointment_status == 'Open'" class="col">
-
-                                            <a class="dropdown-toggle" role="button" id="dropdownMenuLink"
-                                                [matMenuTriggerFor]="menu">
-
-                                            </a>
-                                            <mat-menu #menu="matMenu">
-                                                <button mat-menu-item
-                                                    (click)="updateStatus(p._id,'Closed')">Close</button>
-                                                <button mat-menu-item
-                                                    (click)="updateStatus(p._id,'Cancelled')">Cancel</button>
-                                            </mat-menu>
-                                        </div>
-                                    </div>
-
-
-                                </td>
-                            </tr>
-
-                        </tbody>
-
-                    </table> -->
-                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
-
-
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="position">
-                            <th mat-header-cell *matHeaderCellDef class="f-18"> No. </th>
-                            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                        </ng-container>
-
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="Patient Name">
-                            <th mat-header-cell *matHeaderCellDef class="f-18"> Name </th>
-                            <td mat-cell *matCellDef="let element">
-
-                                <img class="patient_img position-relative" height="30"
-                                        src="https://img.icons8.com/external-konkapp-outline-color-konkapp/64/000000/external-patient-virus-transmission-konkapp-outline-color-konkapp.png" />
-                                
-                                {{element.patient_name}} </td>
-                        </ng-container>
-
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="Patient Phone">
-                            <th mat-header-cell *matHeaderCellDef class="f-18"> Phone </th>
-                            <td mat-cell *matCellDef="let element"> {{element.patinet_phone}} </td>
-                        </ng-container>
-
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="Appointment Date">
-                            <th mat-header-cell *matHeaderCellDef class="f-18"> Appointment Date </th>
-                            <td mat-cell *matCellDef="let element"> {{element.appointment_date | date:'dd/MM/yy'}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="Appointment Time">
-                            <th mat-header-cell *matHeaderCellDef class="f-18"> Time </th>
-                            <td mat-cell *matCellDef="let element"> {{element.appointment_time}} </td>
-                        </ng-container>
-
-
-                        <ng-container matColumnDef="Status">
-                            <th mat-header-cell *matHeaderCellDef class="f-18">Status </th>
-                            <td mat-cell *matCellDef="let element"> {{element.appointment_status }}
-                                <ng-container *ngIf="element.appointment_status == 'Open'" class="col">
-
-                                    <a class="dropdown-toggle" role="button" id="dropdownMenuLink"
-                                        [matMenuTriggerFor]="menu">
-
-                                    </a>
-                                    <mat-menu #menu="matMenu">
-                                        <button mat-menu-item
-                                            (click)="updateStatus(element._id,'Closed')">Close</button>
-                                        <button mat-menu-item
-                                            (click)="updateStatus(element._id,'Cancelled')">Cancel</button>
-                                    </mat-menu>
-                                </ng-container>
-                            </td>
-                        </ng-container>
-
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    </table>
-                    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-                        aria-label="Select page of periodic elements">
-                    </mat-paginator> -->
                 </div>
             </div>
 
